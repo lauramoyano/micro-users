@@ -44,10 +44,12 @@ public class WebSecurityConfig {
                         "users/login"
                         ).permitAll()
                         .requestMatchers("users/registerClient").permitAll()
+                        .requestMatchers("users/getUserByEmail").permitAll()
+                        .requestMatchers("users/getUserById").permitAll()
                         .requestMatchers("users/registerOwner").hasRole("ADMIN")
                         .requestMatchers("users/registerEmployee").hasRole("OWNER")
-                        .requestMatchers("users/getUserById/**").hasRole("ADMIN")
-                        .requestMatchers("users/getUserByEmail/**").hasRole("ADMIN")
+
+
                 )
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

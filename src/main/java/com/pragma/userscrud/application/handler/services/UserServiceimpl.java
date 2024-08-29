@@ -40,12 +40,18 @@ public class UserServiceimpl implements IUserHandler {
 
         @Override
         public UserDtoResponse getUserById(Long id) {
-            return this.userResponseMapper.mapUserToUserDtoResponse(this.userServicePort.getUserById(id));
+            String rolName = this.userServicePort.getUserById(id).getRol().getName();
+            UserDtoResponse user = this.userResponseMapper.mapUserToUserDtoResponse(this.userServicePort.getUserById(id));
+            user.setRolName(rolName);
+            return user;
         }
 
         @Override
         public UserDtoResponse getUserByEmail(String email) {
-            return this.userResponseMapper.mapUserToUserDtoResponse(this.userServicePort.getUserByEmail(email));
+            String rolName = this.userServicePort.getUserByEmail(email).getRol().getName();
+            UserDtoResponse user = this.userResponseMapper.mapUserToUserDtoResponse(this.userServicePort.getUserByEmail(email));
+            user.setRolName(rolName);
+            return  user;
         }
 
         @Override
@@ -64,9 +70,9 @@ public class UserServiceimpl implements IUserHandler {
         }
 
         @Override
-        public EmployeeDtoResponse registerEmployee(EmployeeDtoRequest employeeDtoRequest) {
+        public EmployeeDtoResponse registerEmployee(EmployeeDtoRequest employeeDtoRequest, String token) {
             final User user = this.userRequestMapper.mapEmployeeDtoRequestToUser(employeeDtoRequest);
-            final User userRegister = this.userServicePort.registerEmployee(user);
+            final User userRegister = this.userServicePort.registerEmployee(user, token, employeeDtoRequest.getIdRestaurant());
             return this.userResponseMapper.mapUserToEmployeeDtoResponse(userRegister);
         }
 

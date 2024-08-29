@@ -1,5 +1,6 @@
 package com.pragma.userscrud.application.dto.response;
 
+import com.pragma.userscrud.domain.models.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

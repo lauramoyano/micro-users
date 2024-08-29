@@ -30,7 +30,6 @@ public class JwtTokenProvider {
         claims.put("auth", authority);
         claims.put("name", nameFromUser);
         claims.put("lastName", lastNameFromUser);
-
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 

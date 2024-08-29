@@ -3,6 +3,7 @@ package com.pragma.userscrud.infrastructure.config;
 import com.pragma.userscrud.domain.api.IUserServicePort;
 import com.pragma.userscrud.domain.spi.IRolPersistencePort;
 import com.pragma.userscrud.domain.spi.IUserPersistencePort;
+import com.pragma.userscrud.domain.spi.client.IEmployeeRestaurant;
 import com.pragma.userscrud.domain.usecase.UserUseCase;
 import com.pragma.userscrud.infrastructure.config.Jwt.JwtTokenProvider;
 import com.pragma.userscrud.infrastructure.output.jpa.adapter.RolAdapter;
@@ -26,6 +27,7 @@ public class UserBeanConfig {
     private final IUserEntityMapper userMapper;
     private final IRolEntityMapper rolMapper;
     private final JwtTokenProvider jwtTokenProvider;
+    private final IEmployeeRestaurant employeeRestaurant;
 
     @Bean
     public IUserPersistencePort userPersistencePort() {
@@ -39,7 +41,7 @@ public class UserBeanConfig {
 
     @Bean
     public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort(), rolPersistencePort(), passwordEncoder());
+        return new UserUseCase(userPersistencePort(), rolPersistencePort(), passwordEncoder(), employeeRestaurant);
     }
 
 

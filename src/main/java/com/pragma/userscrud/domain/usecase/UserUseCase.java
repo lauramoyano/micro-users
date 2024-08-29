@@ -2,12 +2,14 @@ package com.pragma.userscrud.domain.usecase;
 
 
 import com.pragma.userscrud.domain.api.IUserServicePort;
+import com.pragma.userscrud.domain.models.EmployeeRestaurant;
 import com.pragma.userscrud.domain.models.Rol;
 import com.pragma.userscrud.domain.models.User;
 import com.pragma.userscrud.domain.models.UserLogin;
 import com.pragma.userscrud.domain.spi.IRolPersistencePort;
 import com.pragma.userscrud.domain.spi.IUserPersistencePort;
 
+import com.pragma.userscrud.domain.spi.client.IEmployeeRestaurant;
 import  org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -19,16 +21,18 @@ public class UserUseCase implements IUserServicePort {
     private final IUserPersistencePort userPersistencePort;
     private final IRolPersistencePort rolPersistencePort;
     private final PasswordEncoder bCryptPasswordEncoder;
+    private final IEmployeeRestaurant employeeRestaurant;
     private static final String OWNER = "OWNER";
     private static final String EMPLOYEE = "EMPLOYEE";
     private static final String CLIENT = "CUSTOMER";
     private static final String userNotFound = "User not found";
 
 
-    public UserUseCase(IUserPersistencePort userPersistencePort, IRolPersistencePort rolPersistencePort, PasswordEncoder bCryptPasswordEncoder) {
+    public UserUseCase(IUserPersistencePort userPersistencePort, IRolPersistencePort rolPersistencePort, PasswordEncoder bCryptPasswordEncoder, IEmployeeRestaurant employeeRestaurant) {
         this.userPersistencePort = userPersistencePort;
         this.rolPersistencePort = rolPersistencePort;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.employeeRestaurant = employeeRestaurant;
     }
     //validations fields and logic
     //validate is email already exists
@@ -92,7 +96,7 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public User registerEmployee(User user) {
+    public User registerEmployee(User user, String token, Long idRestaurant) {
 
 
         if (user.getBirthDate() == null) {
@@ -102,7 +106,11 @@ public class UserUseCase implements IUserServicePort {
         final Rol employeeRol = this.rolPersistencePort.findRolByName(EMPLOYEE);
         user.setRol(employeeRol);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userPersistencePort.createUser(user);
+        final User employee = userPersistencePort.createUser(user);
+        EmployeeRestaurant employeeRestaurantModel = new EmployeeRestaurant(user.getId(), idRestaurant);
+        employeeRestaurant.createEmployeeUserRestaurant(employeeRestaurantModel, token);
+
+        return employee;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.pragma.userscrud.infrastructure.output.jpa.adapter;
 
+import com.pragma.userscrud.domain.models.EmployeeRestaurant;
 import com.pragma.userscrud.domain.models.User;
 import com.pragma.userscrud.domain.spi.IUserPersistencePort;
 import com.pragma.userscrud.infrastructure.config.Jwt.JwtTokenProvider;
@@ -41,5 +42,6 @@ public class UserAdapter implements IUserPersistencePort {
         //System.out.println("Generating token for: " + email);
         return jwtTokenProvider.generateToken(email, authority, nameFromUser, lastNameFromUser);
     }
+
 
 }

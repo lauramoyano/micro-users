@@ -16,4 +16,5 @@ public class EmployeeDtoRequest {
     private String phone;
     private String email;
     private String password;
+    private Long idRestaurant;
 }

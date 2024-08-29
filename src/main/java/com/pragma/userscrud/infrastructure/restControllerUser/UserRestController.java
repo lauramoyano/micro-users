@@ -32,14 +32,13 @@ public class UserRestController {
     }
 
     @GetMapping("/getUserById/{id}")
-    @PreAuthorize(value = "hasRole('ADMIN')")
     public ResponseEntity<UserDtoResponse> getUserById(@PathVariable Long id) {
         UserDtoResponse user = this.userHandler.getUserById(id);
         return new ResponseEntity<>(user, org.springframework.http.HttpStatus.OK);
     }
 
     @GetMapping("/getUserByEmail/{email}")
-    @PreAuthorize(value = "hasRole('ADMIN')")
+    
     public ResponseEntity<UserDtoResponse> getUserByEmail(@PathVariable String email) {
         UserDtoResponse user = this.userHandler.getUserByEmail(email);
         return new ResponseEntity<>(user, org.springframework.http.HttpStatus.OK);
@@ -53,8 +52,9 @@ public class UserRestController {
 
     @PostMapping("/registerEmployee")
     @PreAuthorize(value = "hasRole('OWNER')")
-    public  ResponseEntity<EmployeeDtoResponse> registerEmployee(@RequestBody EmployeeDtoRequest employeeDtoRequest) {
-        EmployeeDtoResponse employeeRegister = this.userHandler.registerEmployee(employeeDtoRequest);
+    public  ResponseEntity<EmployeeDtoResponse> registerEmployee(@RequestBody EmployeeDtoRequest employeeDtoRequest,
+                                                                 @RequestHeader("Authorization") String token) {
+        EmployeeDtoResponse employeeRegister = this.userHandler.registerEmployee(employeeDtoRequest, token);
         return new ResponseEntity<>(employeeRegister, org.springframework.http.HttpStatus.CREATED);
     }
 

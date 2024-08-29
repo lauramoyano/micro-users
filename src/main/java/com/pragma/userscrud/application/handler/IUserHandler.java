@@ -12,7 +12,7 @@ import com.pragma.userscrud.application.dto.response.UserDtoResponse;
 
 public interface IUserHandler {
     OwnerDtoResponse registerOwner(OwnerDtoRequest ownerDtoRequest);
-    EmployeeDtoResponse registerEmployee(EmployeeDtoRequest employeeDtoRequest);
+    EmployeeDtoResponse registerEmployee(EmployeeDtoRequest employeeDtoRequest, String token);
     EmployeeDtoResponse registerClient(ClientDtoRequest clientDtoRequest);
     UserDtoResponse getUserById(Long id);
     UserDtoResponse getUserByEmail(String email);

@@ -31,7 +31,7 @@ public class UserEntity {
     private String email;
     @Column(name = "password")
     private String password;
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name = "rol", referencedColumnName = "idRol")
     private RolEntity rol;
 }

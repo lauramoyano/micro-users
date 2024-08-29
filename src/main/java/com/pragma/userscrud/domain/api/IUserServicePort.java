@@ -6,7 +6,7 @@ import com.pragma.userscrud.domain.models.UserLogin;
 
 public interface IUserServicePort {
     User registerOwner(User user);
-    User registerEmployee(User user);
+    User registerEmployee(User user, String token, Long idRestaurant);
     User registerClient(User user);
     User getUserById(Long id);
     User getUserByEmail(String email);
