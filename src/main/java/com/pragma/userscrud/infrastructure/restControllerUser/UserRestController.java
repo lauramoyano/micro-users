@@ -10,7 +10,10 @@ import com.pragma.userscrud.application.dto.response.LoginUserDtoResponse;
 import com.pragma.userscrud.application.dto.response.OwnerDtoResponse;
 import com.pragma.userscrud.application.dto.response.UserDtoResponse;
 import com.pragma.userscrud.application.handler.IUserHandler;
+import com.pragma.userscrud.infrastructure.config.Jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserRestController {
     private final IUserHandler userHandler;
+    private final JwtTokenProvider jwtTokenProvider;
 
 
 
@@ -62,6 +66,16 @@ public class UserRestController {
     public  ResponseEntity<EmployeeDtoResponse> registerClient(@RequestBody ClientDtoRequest clientDtoRequest) {
         EmployeeDtoResponse clientRegister = this.userHandler.registerClient(clientDtoRequest);
         return new ResponseEntity<>(clientRegister, org.springframework.http.HttpStatus.CREATED);
+    }
+
+    @GetMapping("/validateToken")
+    public ResponseEntity<Void> validateToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        String actualToken = token.startsWith("Bearer ") ? token.substring(7) : token;
+        if (jwtTokenProvider.validateToken(actualToken)) {
+            return ResponseEntity.noContent().build(); // Token válido
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // Token inválido
+        }
     }
 }
 

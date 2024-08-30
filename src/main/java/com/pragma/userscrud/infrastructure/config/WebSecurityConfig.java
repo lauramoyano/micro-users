@@ -43,6 +43,7 @@ public class WebSecurityConfig {
                 .authorizeRequests( request -> request.requestMatchers(
                         "users/login"
                         ).permitAll()
+                        .requestMatchers("/plaza/admin/**").permitAll()
                         .requestMatchers("users/registerClient").permitAll()
                         .requestMatchers("users/getUserByEmail").permitAll()
                         .requestMatchers("users/getUserById").permitAll()

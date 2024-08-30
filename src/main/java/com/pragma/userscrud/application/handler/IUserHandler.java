@@ -17,4 +17,5 @@ public interface IUserHandler {
     UserDtoResponse getUserById(Long id);
     UserDtoResponse getUserByEmail(String email);
     LoginUserDtoResponse login(LoginUserDtoRequest loginUserDtoRequest);
+
 }

@@ -2,7 +2,7 @@ spring:
   application:
     name: users-crud
   datasource:
-    url: jdbc:mysql://localhost:3307/user-crud
+    url: jdbc:mysql://localhost:3309/users-crud
     username: root
     password: laura
     driver-class-name: com.mysql.cj.jdbc.Driver
