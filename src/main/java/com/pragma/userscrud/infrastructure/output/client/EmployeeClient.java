@@ -22,7 +22,7 @@ public class EmployeeClient implements IEmployeeRestaurant {
     public void createEmployeeUserRestaurant(EmployeeRestaurant employeeRestaurant, String token) {
         // Implementation for createEmployeeUserRestaurant
         webClient.post()
-                .uri(uriBuilder -> uriBuilder.path("/restaurant/employee/create").build())
+                .uri(uriBuilder -> uriBuilder.path("/plaza/owner/create").build())
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .bodyValue(employeeRestaurant)
                 .exchangeToMono(clientResponse -> {

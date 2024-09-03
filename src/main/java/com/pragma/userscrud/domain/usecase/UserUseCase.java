@@ -97,8 +97,6 @@ public class UserUseCase implements IUserServicePort {
 
     @Override
     public User registerEmployee(User user, String token, Long idRestaurant) {
-
-
         if (user.getBirthDate() == null) {
             user.setBirthDate(new Date());
         }
@@ -107,11 +105,12 @@ public class UserUseCase implements IUserServicePort {
         user.setRol(employeeRol);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         final User employee = userPersistencePort.createUser(user);
-        EmployeeRestaurant employeeRestaurantModel = new EmployeeRestaurant(user.getId(), idRestaurant);
+        EmployeeRestaurant employeeRestaurantModel = new EmployeeRestaurant(employee.getId(), idRestaurant);
         employeeRestaurant.createEmployeeUserRestaurant(employeeRestaurantModel, token);
 
         return employee;
     }
+
 
     @Override
     public User registerClient(User user) {
