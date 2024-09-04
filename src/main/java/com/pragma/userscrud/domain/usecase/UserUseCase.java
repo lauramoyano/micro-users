@@ -47,7 +47,7 @@ public class UserUseCase implements IUserServicePort {
     }
     //validate phone structure
     private void validatePhone(String phone) {
-        if (!phone.matches("\\+?\\d{1,13}")) {
+        if (!phone.matches("(\\+\\d{12})|(\\d{10})"))  {
             throw new IllegalArgumentException("Phone must be a maximum of 13 characters and can contain the symbol +");
         }
     }
