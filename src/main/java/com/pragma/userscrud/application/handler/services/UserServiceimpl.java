@@ -33,8 +33,8 @@ public class UserServiceimpl implements IUserHandler {
 
         @Override
         public OwnerDtoResponse registerOwner(OwnerDtoRequest ownerDtoRequest) {
-            final User user = this.userRequestMapper.mapOwnerDtoRequestToUser(ownerDtoRequest);
-            final User userRegister = this.userServicePort.registerOwner(user);
+            User user = this.userRequestMapper.mapOwnerDtoRequestToUser(ownerDtoRequest);
+            User userRegister = this.userServicePort.registerOwner(user);
             return this.userResponseMapper.mapUserToOwnerDtoResponse(userRegister);
         }
 
@@ -71,15 +71,15 @@ public class UserServiceimpl implements IUserHandler {
 
         @Override
         public EmployeeDtoResponse registerEmployee(EmployeeDtoRequest employeeDtoRequest, String token) {
-            final User user = this.userRequestMapper.mapEmployeeDtoRequestToUser(employeeDtoRequest);
-            final User userRegister = this.userServicePort.registerEmployee(user, token, employeeDtoRequest.getIdRestaurant());
+            User user = this.userRequestMapper.mapEmployeeDtoRequestToUser(employeeDtoRequest);
+            User userRegister = this.userServicePort.registerEmployee(user, token, employeeDtoRequest.getIdRestaurant());
             return this.userResponseMapper.mapUserToEmployeeDtoResponse(userRegister);
         }
 
         @Override
         public EmployeeDtoResponse registerClient(ClientDtoRequest clientDtoRequest) {
-            final User user = this.userRequestMapper.mapClientDtoRequestToUser(clientDtoRequest);
-            final User userRegister = this.userServicePort.registerClient(user);
+            User user = this.userRequestMapper.mapClientDtoRequestToUser(clientDtoRequest);
+            User userRegister = this.userServicePort.registerClient(user);
             return this.userResponseMapper.mapUserToEmployeeDtoResponse(userRegister);
         }
 

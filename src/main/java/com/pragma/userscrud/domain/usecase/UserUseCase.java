@@ -84,12 +84,12 @@ public class UserUseCase implements IUserServicePort {
     }
     @Override
     public User registerOwner(User user) {
-        final boolean isAdult = user.isAdult();
+        boolean isAdult = user.isAdult();
         if(!isAdult){
             throw new IllegalArgumentException("User must be adult");
         }
         validateUser(user);
-        final Rol ownerRol = this.rolPersistencePort.findRolByName(OWNER);
+        Rol ownerRol = this.rolPersistencePort.findRolByName(OWNER);
         user.setRol(ownerRol);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userPersistencePort.createUser(user);
@@ -101,10 +101,10 @@ public class UserUseCase implements IUserServicePort {
             user.setBirthDate(new Date());
         }
         validateUser(user);
-        final Rol employeeRol = this.rolPersistencePort.findRolByName(EMPLOYEE);
+        Rol employeeRol = this.rolPersistencePort.findRolByName(EMPLOYEE);
         user.setRol(employeeRol);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        final User employee = userPersistencePort.createUser(user);
+        User employee = userPersistencePort.createUser(user);
         EmployeeRestaurant employeeRestaurantModel = new EmployeeRestaurant(employee.getId(), idRestaurant);
         employeeRestaurant.createEmployeeUserRestaurant(employeeRestaurantModel, token);
 

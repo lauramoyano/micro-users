@@ -67,14 +67,14 @@ public class UserServiceTest {
         user = new User();
         user.setEmail("test@gmail.com");
 
-        // Crear y asignar un objeto Rol al User para evitar NullPointerException
+
         Rol rol = new Rol();
         rol.setName("CISTOMER");
-        user.setRol(rol); // Asignar el rol al usuario
+        user.setRol(rol);
 
         userDtoResponse = new UserDtoResponse();
         userDtoResponse.setEmail("test@gmail.com");
-        userDtoResponse.setRolName(rol.getName()); // Asignar el nombre del rol al DTO de respuesta
+        userDtoResponse.setRolName(rol.getName());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class UserServiceTest {
 
         assertEquals(userDtoResponse.getEmail(), result.getEmail());
         assertEquals(userDtoResponse.getRolName(), result.getRolName());
-        verify(userServicePort, times(2)).getUserByEmail(email); // Called twice in the method
+        verify(userServicePort, times(2)).getUserByEmail(email);
         verify(userResponseMapper, times(1)).mapUserToUserDtoResponse(user);
     }
 
